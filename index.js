@@ -68,7 +68,18 @@ function getHighestMetascore(movies) {
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+  let sum = 0;
+  let count = 0;
+  //loop through all movies in array
+  for (const movie of movies){
+    //increment count and sum
+    count += 1;
+    sum += parseFloat(movie.imdbRating);
+  }
+  return (count ===0) ? 0 : +(sum/count).toFixed(2);
+}
+//console.log(getAverageIMDBRating(exampleMovies));
 
 /**
  * countByRating()
@@ -81,7 +92,17 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  let output = {};
+  //loop through all movie objects in movies array
+    for (const movie of movies){
+      //create key if needed
+      if(output[movie.rated] === undefined) output[movie.rated] = 0;
+      output[movie.rated] += 1; //increment value    
+  }
+  return output;
+}
+//console.log(countByRating(exampleMovies));
 
 /**
  * findById()
@@ -97,7 +118,14 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  //find movie
+  let movie = movies.find( movie => id === movie.imdbID);
+
+  //return null if movie was not found
+  return (movie === undefined) ? null : movie;
+}
+console.log(findById(exampleMovies, 'tt2380307'));
 
 /**
  * filterByGenre()
