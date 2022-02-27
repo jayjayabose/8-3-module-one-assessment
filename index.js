@@ -125,7 +125,7 @@ function findById(movies, id) {
   //return null if movie was not found
   return (movie === undefined) ? null : movie;
 }
-console.log(findById(exampleMovies, 'tt2380307'));
+//console.log(findById(exampleMovies, 'tt2380307'));
 
 /**
  * filterByGenre()
@@ -147,7 +147,11 @@ console.log(findById(exampleMovies, 'tt2380307'));
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  //return array of matching movies, or empty array
+  return movies.filter( movie => movie.genre.toLowerCase().includes(genre.toLowerCase()) );
+}
+//console.log(filterByGenre(exampleMovies, 'DRAMA'));
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -171,7 +175,10 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  return movies.filter( movie => parseInt(movie.released.split(' ')[2]) <= parseInt(year) );
+}
+//console.log(getAllMoviesReleasedAtOrBeforeYear(exampleMovies, 2000));
 
 /**
  * getBiggestBoxOfficeMovie()
@@ -184,7 +191,23 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+  let highest = 0;
+  let result = null;
+  
+  //loop through all movies in array
+  for (const movie of movies){
+    let value = +movie.boxOffice.split(',').join('').replace('$',''); //boxOffice: "$434,038,008",   
+    // if > hightest, update highest and title
+    if (value > highest){
+      highest = value;
+      result = movie.title;
+    }  
+  }
+  return result;
+}
+
+//console.log(getBiggestBoxOfficeMovie(exampleMovies));
 
 // Do not change anything below this line.
 module.exports = {
